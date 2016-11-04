@@ -1,0 +1,48 @@
+/**
+ * Write a description of class Passenger here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Passenger
+{
+    private String fName,lName;
+    private int seatRow;
+    private String seatLetter;
+   
+    public Passenger(String first, String last, int row, String letter)
+    {
+       fName = first;
+       lName = last;
+       seatRow = row;
+       seatLetter = letter;
+        
+    }
+    
+    public String getFirstName()
+    {
+        return fName;
+    }
+    
+    public String getLastName()
+    {
+        return lName;
+    }
+    
+    public String getFullName()
+    {
+        return fName + lName;
+    }
+    
+    public int getRow()
+    {
+        return seatRow;
+    }
+    
+    public String getLetter()
+    {
+        return seatLetter;
+    }
+     
+ 
+}
