@@ -1,0 +1,28 @@
+/**
+ * Write a description of class Seat here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+import java.util.Random;
+public class Seat
+{
+    private Passenger[][] seating;
+    private int row = 4;
+    private int column = 12;
+    private int placeRow;
+    private int placeColumn;
+    private Random random = new Random();
+    
+    public Seat()
+    {
+        seating = new Passenger[row][column];
+    }
+    
+    public void insertRandomPassenger(Passenger p)
+    {
+        placeRow = random.nextInt(4);
+        placeColumn = random.nextInt(12);
+        seating[placeRow][placeColumn] = p;
+    }
+}
