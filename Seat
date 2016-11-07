@@ -1,28 +1,74 @@
 /**
- * Write a description of class Seat here.
+ * A seat on an airplane.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-import java.util.Random;
 public class Seat
 {
-    private Passenger[][] seating;
-    private int row = 4;
-    private int column = 12;
-    private int placeRow;
-    private int placeColumn;
-    private Random random = new Random();
-    
-    public Seat()
+    private int row;
+    private String section;
+    private boolean vacancy;
+    private Passenger passenger;
+    private boolean windowView; 
+    private boolean firstClass; //first class = 1, economomy class = 0;
+
+    public Seat(String aSection, int aRow)
     {
-        seating = new Passenger[row][column];
+        row = aRow;
+        section = aSection;
+        vacancy = true;
+        passenger = new Passenger("John", "Doe");
+        firstClass = true;  //temporarily assumes to be first class
+        windowView = true;  //temporarily initializes as window view
     }
     
-    public void insertRandomPassenger(Passenger p)
+    public int getRow()
     {
-        placeRow = random.nextInt(4);
-        placeColumn = random.nextInt(12);
-        seating[placeRow][placeColumn] = p;
+        return row;
     }
+    
+    //status = true if window seat, else false
+    public void setWindowView(boolean status)
+    {
+        windowView = status;
+    }
+    
+    public boolean getWindowViewStatus()
+    {
+        return windowView;
+    }
+    
+    //status = true if first class
+    public void setSeatClass(boolean status)
+    {
+        firstClass = status;
+    }
+    
+    public boolean getSeatClass()
+    {
+        return firstClass;
+    }
+        
+    public String getSeatSection()
+    {
+        return section;
+    }
+    
+    public void setSeatSection(String s)
+    {
+        section = s;
+    }
+    
+    //status = true if seat is available
+    public void setVacancy(boolean status)
+    {
+        vacancy = status;
+    }
+    
+    public void assignPassenger(Passenger p)
+    {   
+        passenger = p;
+    }
+  
 }
