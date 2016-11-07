@@ -1,22 +1,22 @@
 /**
- * Write a description of class Passenger here.
+ * A passenger on airplane
  * 
- * @author (your name) 
+ * @author (Luc) 
  * @version (a version number or a date)
  */
 public class Passenger
 {
-    private String fName,lName;
-    private int seatRow;
-    private String seatLetter;
-   
-    public Passenger(String first, String last, int row, String letter)
+    private String fName, lName;
+    
+    public Passenger(String first, String last)
     {
-       fName = first;
-       lName = last;
-       seatRow = row;
-       seatLetter = letter;
-        
+        fName = first;
+        lName = last;
+    }
+    
+    public String getFullName()
+    {
+        return fName + lName;
     }
     
     public String getFirstName()
@@ -29,20 +29,4 @@ public class Passenger
         return lName;
     }
     
-    public String getFullName()
-    {
-        return fName + lName;
-    }
-    
-    public int getRow()
-    {
-        return seatRow;
-    }
-    
-    public String getLetter()
-    {
-        return seatLetter;
-    }
-     
- 
 }
