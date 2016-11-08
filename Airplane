@@ -27,13 +27,13 @@ public class Airplane
     
    public void initializeSeats()
    {
-       for (int j = 1; j < ROW-1; j++)
+       for (int j = 1; j < ROW; j++)
        {
            boolean firstClass = true;
            if (j > 4)
                 firstClass = false;
                 
-           for (int i = 1; i < SECTION-1; i++)
+           for (int i = 1; i < SECTION; i++)
            {
                String section = "E";
                boolean windowView = true;
@@ -107,9 +107,9 @@ public class Airplane
    
    public void printSeats() //*
    {
-       for (int j = 1; j < SECTION-1; j++)
+       for (int j = 1; j < SECTION; j++)
        {
-           for (int i = 1; i < ROW-1; i++)
+           for (int i = 1; i < ROW; i++)
            {
                if (seats[j][i].getVacancy()==false)
                    System.out.print("["+"X"+"]  ");
@@ -223,7 +223,7 @@ public class Airplane
         }
    }
    
-   public void displayMenu()
+   public void displayMenu() //*
    {
    Scanner input= new Scanner(System.in);
    boolean cont = true;
