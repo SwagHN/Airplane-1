@@ -197,6 +197,23 @@ public class Airplane
        }
    }
    
+   public void assignRandomSeat(Passenger p)
+    {
+        Random generator = new Random();
+        boolean keepGoing = true;
+        while(keepGoing == true)
+        {
+            int section = generator.nextInt(SECTION-1)+1;
+            int row = generator.nextInt(ROW-1)+1;
+            if(seats[section][row].getVacancy() == true)
+            {
+                seats[section][row].setVacancy(false);
+                seats[section][row].assignPassenger(p);
+                keepGoing = false;
+            }
+        }
+    }
+   
    public void assignment(Passenger p, int grouping)
    {
        if (rowPreferences(grouping) == true)
@@ -209,18 +226,19 @@ public class Airplane
    }
    
    
-   public void printName() //*
+  public void printSeats() //*
    {
-        for(int k =1; k < ROW;k++)
-        {
-            for(int i = 1; i < SECTION; i++)
-            {
-                if(seats[i][k].getVacancy()== true)
-                {
-                    System.out.print("Row: " + k + "Passengers: ");
-                }
-            }
-        }
+       for (int j = 1; j < SECTION; j++)
+       {
+           for (int i = 1; i < ROW; i++)
+           {
+               if (seats[j][i].getVacancy()==false)
+                   System.out.print("["+"X"+"]  ");
+               else
+               System.out.print("[ " + "]  ");
+           }
+           System.out.println();
+       }
    }
    
    public void displayMenu() //*
@@ -252,9 +270,16 @@ public class Airplane
            
            else if(a == 2) 
            {
-               System.out.print("How many seats?");
-               grouping = input.nextInt();
-               
+               System.out.print("How many seats? ");
+                int s = input.nextInt();
+                for(int i =1; i <= s; i++)
+                {
+                    System.out.print("Enter first and last name of passenger ");
+                    String first = input.next();
+                    String last = input.next();
+                    Passenger h = new Passenger(first,last);
+                    assignRandomSeat(h);
+                }
            }
            
            else if(a == 3) 
