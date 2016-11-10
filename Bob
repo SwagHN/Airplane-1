@@ -1,0 +1,331 @@
+/**
+ * Write a description of class Airplane here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+import java.util.Random;
+import java.util.Scanner;
+public class Airplane
+{
+   private final int ROW = 13;  //ROW 1 - 12
+   private final int SECTION = 5; //SEAT A - D
+   private Seat[][] seats;
+   private Random generator = new Random();
+   private final int numberOfSeats = 48;
+   private int grouping;
+   private int startRow;
+   private int startColumn;
+   private int rowPartner;
+   private int columnPartner; 
+   private int seatsLeft;
+   
+   public Airplane()
+   {
+       seatsLeft = 48;
+       seats = new Seat[SECTION][ROW];
+       initializeSeats();
+   }
+    
+   public void initializeSeats()
+   {
+       for (int j = 1; j < ROW; j++)
+       {
+           boolean firstClass = true;
+           if (j > 4)
+                firstClass = false;
+                
+           for (int i = 1; i < SECTION; i++)
+           {
+               String section = "E";
+               boolean windowView = true;
+               
+               if (i == 1)
+                   section = "A";
+               else if (i == 2)
+               {
+                   section = "B";
+                   windowView =false;
+                }
+               else if (i == 3)
+               {
+                   section = "C";
+                   windowView = false;
+                }
+                else
+                    section = "D";
+              
+               Seat temp = new Seat(section,j);
+               temp.setWindowView(windowView);
+               //temp.setSeatSection(section);
+               temp.setSeatClass(firstClass);
+               seats[i][j] = temp;
+            }
+        }
+    }
+
+   public void randomFill()
+   {
+       Random generator = new Random();
+       int counter = 1;
+       while(counter <= numberOfSeats)
+        {
+           int section = generator.nextInt(4) + 1;
+           int row = generator.nextInt(12) + 1;
+            
+           if(seats[section][row].getVacancy() == true)
+           {
+               seats[section][row].setVacancy(false);
+               Passenger jay = new Passenger("Jay" + counter, "Chou");
+               seats[section][row].assignPassenger(jay);
+               seatsLeft--;
+               counter++;
+           }
+       }
+   }
+   
+   public void randomSeating(Passenger p, int grouping)
+   {
+       Random generator = new Random();
+       int counter = 0;
+       boolean cont = true;
+       while(cont = true)
+        {
+           int section = generator.nextInt(ROW-1) + 1;
+           int row = generator.nextInt(SECTION-1) + 1;
+            
+           if(seats[section][row].getVacancy() == true)
+           {
+               seats[section][row].setVacancy(false);
+               seats[section][row].assignPassenger(p);
+               seatsLeft--;
+               counter++;
+           }
+           
+           if (grouping == counter)
+           {
+               cont = false;
+           }
+       }
+   }
+   
+   public void reserveSeats(Passenger p, String row, int seatNumber)
+   {
+       seatNumber = seatNumber - 1;
+       if (row.equalsIgnoreCase("a")&& (seats[0][seatNumber].getVacancy() == false))
+       {
+           seats[0][seatNumber].assignPassenger(p);
+           seats[0][seatNumber].setVacancy(false);
+           seatsLeft--;
+       }
+       if (row.equalsIgnoreCase("b")&&(seats[1][seatNumber].getVacancy() == false))
+       {
+           seats[1][seatNumber].assignPassenger(p);
+           seats[1][seatNumber].setVacancy(false);
+           seatsLeft--;
+       }
+       if (row.equalsIgnoreCase("c")&&(seats[2][seatNumber].getVacancy() == false))
+       {
+           seats[2][seatNumber].assignPassenger(p);
+           seats[2][seatNumber].setVacancy(false);
+           seatsLeft--;;
+       }
+       if (row.equalsIgnoreCase("d")&&(seats[3][seatNumber].getVacancy() == false))
+       {
+           seats[3][seatNumber].assignPassenger(p);
+           seats[3][seatNumber].setVacancy(false);
+           seatsLeft--;;
+       }
+   }
+   
+   public void printSeats() //*
+   {
+       for (int j = 1; j < SECTION; j++)
+       {
+           for (int i = 1; i < ROW; i++)
+           {
+               if (seats[j][i].getVacancy()==false)
+                   System.out.print("["+"X"+"]  ");
+               else
+               System.out.print("[ " + "]  ");
+           }
+           System.out.println();
+       }
+   }
+   
+   public boolean rowPreferences(int grouping) //*
+   {
+       int count = 0;       
+       if (grouping > 1)
+       {
+           for (int i = 0; i < SECTION; i++)
+           {
+               for (int j = 0; j < ROW; j++)
+               {
+                   if (seats[i][j].getVacancy() == true)
+                   {
+                       count++;
+                       startRow = j;
+                       rowPartner = i;
+                   }
+                   else
+                   {
+                       count = 0;
+                       startRow = -1;
+                       rowPartner = -1;
+                   }
+               }
+           }
+       }
+       
+       else
+       {
+           return true;
+       }
+       if (count == grouping)
+       {
+           startRow = startRow-grouping;
+           return true;
+       }
+       else
+       {
+           return false;
+       }
+   }
+   
+   public boolean columnPreferences (int grouping) //*
+   {
+       int count = 0;       
+       if (grouping <=4)
+       {
+           for (int i = 0; i < ROW; i++)
+           {
+               for (int j = 0; j < SECTION; j++)
+               {
+                   if (seats[i][j].getVacancy() == true)
+                   {
+                       count++;
+                       startColumn = j-grouping;
+                   }
+                   else
+                   {
+                       count = 0;
+                   }
+               }
+           }
+       }
+       
+       else
+       {
+           return true;
+       }
+       if (count == grouping)
+       {
+           startColumn = startColumn-grouping;
+           return true;
+       }
+       else
+       {
+           return false;
+       }
+   }
+   
+   public void assignment(Passenger p, int grouping)
+   {
+       if (rowPreferences(grouping) == true)
+       {
+           for (int i = startRow; i < startRow+grouping; i++)
+           {
+               seats[rowPartner][i].assignPassenger(p);
+               seatsLeft = seatsLeft - grouping;
+           }
+       }
+   }
+   
+   public void printName() //*
+   {
+        for(int k =1; k < ROW; k++)
+        {
+            for(int i = 1; i < SECTION; i++)
+            {
+                if(seats[i][k].getVacancy()== true)
+                {
+                    System.out.print("Row: " + k + "Passengers: ");
+                }
+            }
+        }
+   }
+   
+   public void displayMenu() //*
+   {
+   Scanner input= new Scanner(System.in);
+   boolean cont = true;
+   while(cont == true)
+   {
+           System.out.println();
+           System.out.println("Enter 0 to display all seats");
+           System.out.println("Enter 1 to reserve seats manually");
+           System.out.println("Enter 2 to reserve any available seats(no preferences)");
+           System.out.println("Enter 3 to reserve seats with preferential seating");
+           System.out.println("Enter 4 to cancel/update a reservation");
+           System.out.println("Enter 5 to print all passengers names");
+           System.out.println("Enter any other number to exit");
+           
+           int a = input.nextInt();
+           
+           if(a == 0) 
+           {
+               printSeats();            
+           }
+           
+           else if(a == 1)
+           {
+               System.out.println("Enter in row letter: ");
+               String bow = input.nextLine();
+               
+               System.out.println("Enter in seat number: ");
+               int seatNumb = input.nextInt();
+               
+               if (bow.equalsIgnoreCase("A") || bow.equalsIgnoreCase("B")|| bow.equalsIgnoreCase("C") || bow.equalsIgnoreCase("D"))
+               {
+                   System.out.print("Enter in your first name: ");
+                   String firname = input.nextLine();
+                   System.out.print("Enter in your last name: ");
+                   String laname = input.nextLine();
+                   Passenger donny = new Passenger(firname, laname);
+                   reserveSeats(donny, bow, seatNumb);
+               }
+               else
+               {
+                   System.out.print("Cannot be done, my apologies.");
+               }
+           }
+           
+           else if(a == 2) 
+           {
+               
+               
+           }
+           
+           else if(a == 3) 
+           {
+               
+           }
+           
+           else if(a == 4) 
+           {
+               
+           }
+           
+           else if(a == 5) 
+           {
+               printName();
+           }
+           
+           else 
+           {
+               cont = false;
+           }
+        }
+   } 
+}
