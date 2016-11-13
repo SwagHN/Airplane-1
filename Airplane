@@ -197,6 +197,23 @@ public class Airplane
        }
    }
    
+   public void assignRandomSeat(Passenger p)
+    {
+        Random generator = new Random();
+        boolean keepGoing = true;
+        while(keepGoing == true)
+        {
+            int section = generator.nextInt(SECTION-1)+1;
+            int row = generator.nextInt(ROW-1)+1;
+            if(seats[section][row].getVacancy() == true)
+            {
+                seats[section][row].setVacancy(false);
+                seats[section][row].assignPassenger(p);
+                keepGoing = false;
+            }
+        }
+    }
+   
    public void assignment(Passenger p, int grouping)
    {
        if (rowPreferences(grouping) == true)
@@ -209,15 +226,15 @@ public class Airplane
    }
    
    
-   public void printName() //*
+  public void printName() //*
    {
         for(int k =1; k < ROW;k++)
         {
             for(int i = 1; i < SECTION; i++)
             {
-                if(seats[i][k].getVacancy()== true)
+                if(seats[i][k].getVacancy()== false)
                 {
-                    System.out.print("Row: " + k + "Passengers: ");
+                    System.out.println("Row: " + k + " Passengers: " + seats[i][k].getPassenger().getFullName());
                 }
             }
         }
