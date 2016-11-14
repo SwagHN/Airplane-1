@@ -1,8 +1,8 @@
 /**
  * A seat on an airplane.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (David and Henry) 
+ * @version (11/14/16)
  */
 public class Seat
 {
@@ -13,6 +13,13 @@ public class Seat
     private boolean windowView; 
     private boolean firstClass; //first class = 1, economomy class = 0;
 
+    /**
+     * Creates a seat for a passenger
+     * (Postcondition: Creates a seat for a passenger)
+     * @param aSection section the passenger will be seated in(A,B,C,D)
+     * @param aRow row that the passenger will be seated in(1-12)
+     * (Precondition: aSection= A||B||C||D and aRow >= 0 && aRow <=12)
+     */
     public Seat(String aSection, int aRow)
     {
         row = aRow;
@@ -23,56 +30,128 @@ public class Seat
         windowView = true;  //temporarily initializes as window view
     }
     
+    /**
+     * Returns row of a passenger
+     * (Postcondition: Returns row of a passenger)
+     * @return row returns row of a passenger
+     * (Precondition: row = a number between 0-12)
+     */
     public int getRow()
     {
         return row;
     }
     
     //status = true if window seat, else false
+    /**
+     * Sets the passengers seat as window seat
+     * (Postcondition: Sets windowview to true or false)
+     * @param status true or false status for window seat
+     * (Preconditon: status = true or false)
+     */
     public void setWindowView(boolean status)
     {
         windowView = status;
     }
     
+    /**
+     * Returns true or false for window seat status
+     * (Postcondition: Returns true or false)
+     * @return windo returns true or false for a window seat
+     * (Precondition: windowView = true or false)
+     */
     public boolean getWindowViewStatus()
     {
         return windowView;
     }
     
     //status = true if first class
+    /**
+     * Sets the passengers seat as first class
+     * (Postcondition: Sets firstClass to  true or false)
+     * @param status true or false status for first class seat
+     * (Preconditon: status = true or false)
+     */
     public void setSeatClass(boolean status)
     {
         firstClass = status;
     }
     
+    /**
+     * Returns true or false for a first class seat
+     * (Postcondition: Returns true or false)
+     * @return first returns true or false for a first class seat
+     * (Precondition: firstClass = true or false)
+     */
     public boolean getSeatClass()
     {
         return firstClass;
     }
         
+    /**
+     * Returns section a passenger is seated in
+     * (Postcondition: Returns section of where the passenger is seated in)
+     * @return secti Returns section a passenger is seated in
+     * (Precondition; section = String type and section = A||B||C||D)
+     */
     public String getSeatSection()
     {
         return section;
     }
     
+    /**
+     * Sets the section the passenger is seated in
+     * (Postcondition: sets the section passeneger is seated)
+     * @param s section the passenger is in
+     * (Precondition: s = A||B||C||D)
+     */
     public void setSeatSection(String s)
     {
         section = s;
     }
     
     //status = true if seat is available
+    /**
+     * Sets the vacancy of a seat
+     * (Postcondition: set vacancy to true or false)
+     * @param status true or false status for a vacant seat
+     * (Precondition: status = true or false)
+     */
     public void setVacancy(boolean status)
     {
         vacancy = status;
     }
     
+    /**
+     * Returns the vacancy of a seat
+     * (Postcondition: Returns true or false for vacancy of a seat)
+     * @return vacan returns true or false for a vacant seat or occupied seat
+     * (Precondition: vacancy = true or false)
+     * 
+     */
     public boolean getVacancy()
     {
         return vacancy;
     }
     
+    /**
+     * Assigns a passenger
+     * (Postconditions: initializes a passenger p)
+     * @param p passenger that is created by user
+     * (Precondition: p = Passenger type)
+     */
     public void assignPassenger(Passenger p)
-    {   
+    {
         passenger = p;
+    }
+    
+    /**
+     * Returns a passenger
+     * (Postcondition: returns a passegner)
+     * @return passe returns a passenger
+     * (Precondition: passenger = Passenger type)
+     */
+    public Passenger getPassenger()
+    {
+        return passenger;
     }
 }
