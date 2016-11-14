@@ -19,21 +19,12 @@ public class Airplane
    private int rowPartner;
    private int columnPartner; 
    private int seatsLeft;
-   private Passenger dummy;
    
    public Airplane()
    {
        seatsLeft = 48;
        seats = new Seat[SECTION][ROW];
        initializeSeats();
-       dummy = new Passenger(" ");
-       for (int j = 1; j < ROW; j++)
-       {
-           for (int i = 1; i < SECTION; i++)
-           {
-               seats[j][i].assignPassenger(dummy); 
-           }
-       }
    }
     
    public void initializeSeats()
@@ -120,7 +111,7 @@ public class Airplane
    
    public void reserveSeats(Passenger p, String row, int seatNumber)
    {
-       seatNumber = seatNumber - 1;
+       //seatNumber = seatNumber - 1;
        if (row.equalsIgnoreCase("a") && (seats[0][seatNumber].getVacancy() == false))
        {
            seats[0][seatNumber].assignPassenger(p);
@@ -250,6 +241,7 @@ public class Airplane
            for (int i = startRow; i < startRow+grouping; i++)
            {
                seats[rowPartner][i].assignPassenger(p);
+               seats[rowPartner][i].setVacancy(false);
                seatsLeft = seatsLeft - grouping;
            }
        }
@@ -262,7 +254,7 @@ public class Airplane
               for(int i = 1; i < SECTION; i++)
               {
                 if(seats[i][k].getVacancy()== true)
-             if(seats[i][k].getVacancy()== false)
+                if(seats[i][k].getVacancy()== false)
                   {
                  System.out.print("Row: " + k + "Passengers: ");
                  System.out.println("Row: " + k + " Passengers: " + seats[i][k].getPassenger().getFullName());
