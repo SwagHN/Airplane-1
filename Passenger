@@ -1,32 +1,57 @@
 /**
  * A passenger on airplane
  * 
- * @author (Luc) 
- * @version (a version number or a date)
+ * @author (David and Henry) 
+ * @version (11/14/16)
  */
 public class Passenger
 {
-    private String fName, lName;
+    private String fName, lName;    
     
+    /**
+     * Creates a passenger with first name and last name.
+     * (Postcondition: Creates a passenger)
+     * @param first First name of passenger
+     * @param last Last name of passenger
+     * (Precondition: first = String type, last = String type)
+     */
     public Passenger(String first, String last)
     {
         fName = first;
         lName = last;
     }
     
+    /**
+     * Returns full name of a passenger
+     * (Postcondition: Returns last name and first name of a passenger)
+     * @return fullN Returns full name of a passenger
+     * (Precondition: fName = String type, lName = String type)
+     */
     public String getFullName()
     {
-        return fName + lName;
+        String fullName = fName + lName;
+        return fullName;
     }
     
+    /**
+     * Returns first name of a passenger
+     * (Postcondition: Returns the first name of a passenger)
+     * @return fName returns first name of a passenger
+     * (Precondition: fName = String type)
+     */
     public String getFirstName()
     {
         return fName;
     }
     
+    /**
+     * Returns last name of a passenger
+     * (Postcondition: Returns the last name of a passenger)
+     * @return lName returns last name of a passenger
+     * (Precondition: lName = String type)
+     */
     public String getLastName()
     {
         return lName;
     }
-    
-}
+} 
